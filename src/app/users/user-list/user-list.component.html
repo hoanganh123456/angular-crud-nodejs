@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+        <button (click)="openModalAdd(add)" type="button" class="btn btn-success">
+            Thêm
+        </button>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Address</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.address}}</td>
+                    <td class="text-center">
+                        <button (click)="openModalEdit(edit,user)" type="button" class="btn btn-warning">
+                            Sửa
+                        </button>
+                        &nbsp;
+                        <button (click)="openModalDelete(delete,user._id)" type="button" class="btn btn-danger">
+                            Xóa
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #add>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Modal</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="user.name" placeholder="Enter name">
+              <small class="form-text text-danger">{{errorMsg.name}}</small>
+            </div>
+            <div class="form-group">
+                <label for="name">Email address</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="user.address" placeholder="Enter address">
+                <small class="form-text text-danger">{{errorMsg.address}}</small>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="onSave()">Submit</button>
+        </form>    
+    </div>
+</ng-template>
+
+<ng-template #edit>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Update</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form  method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" name="name" [(ngModel)]="editUser.name" placeholder="Enter name">
+              <small class="form-text text-danger">{{errorMsg.name}}</small>
+            </div>
+            <div class="form-group">
+                <label for="name">Email address</label>
+                <input type="text" class="form-control" name="address" [(ngModel)]="editUser.address" placeholder="Enter address">
+                <small class="form-text text-danger">{{errorMsg.address}}</small>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="onUpdate()">Update</button>
+        </form>    
+    </div>
+</ng-template>
+
+<ng-template #delete>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <button (click)="onDelete()" type="submit" class="btn btn-primary">YES</button>
+        <button (click)="modalRef.hide()" type="submit" class="btn btn-primary">NO</button>
+    </div>
+</ng-template>
